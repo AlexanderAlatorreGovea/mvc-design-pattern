@@ -37,7 +37,7 @@ const controlSearchResults = async function () {
     //3) render results
     console.log(model.state.search.results)
   } catch (error) {
-    console.log(err);
+    console.log(err); 
   }
 };
 

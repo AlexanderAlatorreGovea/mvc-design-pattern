@@ -21,3 +21,4 @@ export const getJSON = async (url) => {
     throw error;
   }
 };
+ 

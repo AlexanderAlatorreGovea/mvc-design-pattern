@@ -16,7 +16,7 @@ class SearchView {
       e.preventDefault();
       handler();
     });
-  }
+  } 
 }
 
 export default new SearchView();
