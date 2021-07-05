@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { async } from "regenerator-runtime";
 import { API_URL } from "./config";
 import { getJSON } from "./helpers";
+=======
+export const state = {
+  recipe: {},
+};
+>>>>>>> master
 
 export const state = {
   recipe: {},
@@ -8,6 +14,7 @@ export const state = {
     query: "",
     results: [],
     page: 1,
+<<<<<<< HEAD
     //resultsPerPage: RES_PER_PAGE,
   },
   bookmarks: [],
@@ -54,3 +61,9 @@ export const loadSearchResults = async (query) => {
     throw error;
   }
 };
+=======
+    resultsPerPage: RES_PER_PAGE,
+  },
+  bookmarks: [],
+};
+>>>>>>> master
