@@ -464,6 +464,8 @@ const controlRecipes = async () => {
     const id = window.location.hash.slice(1);
     if (!id) return;
     _viewsRecipeViewJsDefault.default.renderSpinner();
+    // 0) Update results view to mark selected search result
+    _viewsResultsViewDefault.default.update(_modelJs.getSearchResultsPage());
     // 1) loading recipe
     await _modelJs.loadRecipe(id);
     // 2) rendering recipe
@@ -13781,7 +13783,8 @@ var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 var _View = require("./View");
 var _ViewDefault = _parcelHelpers.interopDefault(_View);
-require("url:../../img/icons.svg");
+var _urlImgIconsSvg = require("url:../../img/icons.svg");
+var _urlImgIconsSvgDefault = _parcelHelpers.interopDefault(_urlImgIconsSvg);
 class ResultsView extends _ViewDefault.default {
   _parentElement = document.querySelector(".results");
   _errorMessage = "No recipes found for your query! Please try again ;)";
@@ -13790,21 +13793,25 @@ class ResultsView extends _ViewDefault.default {
     return this._data.map(result => this._generateMarkupPreview(result)).join("");
   }
   _generateMarkupPreview(result) {
+    const id = window.location.hash.slice(1);
     return `
     <li class="preview">
-      <a class="preview__link" href="#${result.id}">
-        <figure class="preview__fig">
-          <img src="${result.image}" alt="${result.title}" />
-        </figure>
-        <div class="preview__data">
-          <h4 class="preview__name">
-          ${result.title}
-          </h4>
-          <p class="preview__publisher">${result.publisher}</p>
+    <a class="preview__link ${result.id === id ? "preview__link--active" : ""}" href="#${result.id}">
+      <figure class="preview__fig">
+        <img src="${result.image}" alt="${result.title}" />
+      </figure>
+      <div class="preview__data">
+        <h4 class="preview__title">${result.title}</h4>
+        <p class="preview__publisher">${result.publisher}</p>
+        <div class="preview__user-generated ${result.key ? "" : "hidden"}">
+          <svg>
+          <use href="${_urlImgIconsSvgDefault.default}#icon-user"></use>
+          </svg>
         </div>
-      </a>
-    </li> 
-    `;
+      </div>
+    </a>
+  </li>    
+  `;
   }
 }
 exports.default = new ResultsView();
