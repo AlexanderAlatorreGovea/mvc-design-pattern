@@ -1,5 +1,6 @@
 import icons from 'url:../../img/icons.svg'; // Parcel 2
 
+//this will make it so that you can call all these functions from everywhere
 export default class View {
   _data;
 
@@ -30,6 +31,7 @@ export default class View {
     const newMarkup = this._generateMarkup();
 
     const newDOM = document.createRange().createContextualFragment(newMarkup);
+    //convert all elements to an array
     const newElements = Array.from(newDOM.querySelectorAll('*'));
     const curElements = Array.from(this._parentElement.querySelectorAll('*'));
 
