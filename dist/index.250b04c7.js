@@ -13251,11 +13251,7 @@ class RecipeView extends _ViewJsDefault.default {
 }
 exports.default = new RecipeView();
 
-<<<<<<< HEAD
 },{"url:../../img/icons.svg":"3t5dV","fractional":"5jzJt","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./View.js":"48jhP"}],"3t5dV":[function(require,module,exports) {
-=======
-},{"url:../../img/icons.svg":"3t5dV","fractional":"5jzJt","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./View":"48jhP"}],"3t5dV":[function(require,module,exports) {
->>>>>>> master
 module.exports = require('./bundle-url').getBundleURL() + "icons.d4a14980.svg"
 },{"./bundle-url":"3seVR"}],"3seVR":[function(require,module,exports) {
 "use strict";
