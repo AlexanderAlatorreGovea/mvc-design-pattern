@@ -13816,7 +13816,7 @@ class ResultsView extends _ViewDefault.default {
 }
 exports.default = new ResultsView();
 
-},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./View":"48jhP","url:../../img/icons.svg":"3t5dV"}],"5u5Fw":[function(require,module,exports) {
+},{"./View":"48jhP","url:../../img/icons.svg":"3t5dV","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"5u5Fw":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 var _ViewJs = require("./View.js");
