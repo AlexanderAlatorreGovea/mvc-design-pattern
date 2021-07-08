@@ -1,4 +1,5 @@
-import icons from 'url:../../img/icons.svg'; // Parcel 2
+//import icons from 'url:../../img/icons.svg'; // Parcel 2
+import icons from "../../img/icons.svg";
 
 //this will make it so that you can call all these functions from everywhere
 export default class View {

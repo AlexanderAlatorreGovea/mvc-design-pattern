@@ -1,22 +1,82 @@
 {
-  "name": "forkify",
-  "version": "1.0.0",
-  "description": "Recipe application",
-  "default": "index.html",
-  "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html --dist-dir ./dist"
-  },
-  "author": "Jonas Schedtmann",
-  "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-private-methods": "^7.12.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@parcel/transformer-sass": "^2.0.0-beta.2",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "core-js": "^3.8.0",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "jest": "^26.6.3",
+    "jest-fetch-mock": "^3.0.3",
+    "jest-transform-stub": "^2.0.0",
     "parcel": "^2.0.0-beta.1",
-    "sass": "^1.26.10"
+    "prettier": "^2.2.1",
+    "regenerator-runtime": "^0.13.7",
+    "sass": "^1.29.0"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-private-methods"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "@babel/plugin-transform-modules-commonjs",
+          "@babel/plugin-proposal-class-properties",
+          "@babel/plugin-proposal-private-methods"
+        ]
+      }
+    }
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "plugin:prettier/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module",
+      "babelOptions": {
+        "plugins": [
+          "@babel/plugin-syntax-class-properties"
+        ]
+      }
+    },
+    "rules": {},
+    "plugins": [
+      "classPrivateProperties",
+      "classPrivateMethods"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "jest-transform-stub",
+      "\\.js$": "babel-jest"
+    },
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "fractional": "^1.0.0",
-    "regenerator-runtime": "^0.13.7"
+    "fractional": "^1.0.0"
   }
 }

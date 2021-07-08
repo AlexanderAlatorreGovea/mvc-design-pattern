@@ -442,76 +442,208 @@ id) /*: string*/
 }
 
 },{}],"3miIZ":[function(require,module,exports) {
-require("regenerator-runtime");
+"use strict";
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+  return _typeof(obj);
+}
+var _regeneratorRuntime = require("regenerator-runtime");
 require("core-js/stable");
 require("regenerator-runtime/runtime");
-var _modelJs = require("./model.js");
-var _viewsRecipeViewJs = require("./views/recipeView.js");
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-var _viewsRecipeViewJsDefault = _parcelHelpers.interopDefault(_viewsRecipeViewJs);
-var _viewsSearchViewJs = require("./views/searchView.js");
-var _viewsSearchViewJsDefault = _parcelHelpers.interopDefault(_viewsSearchViewJs);
-var _viewsResultsView = require("./views/resultsView");
-var _viewsResultsViewDefault = _parcelHelpers.interopDefault(_viewsResultsView);
-var _viewsPaginationView = require("./views/paginationView");
-var _viewsPaginationViewDefault = _parcelHelpers.interopDefault(_viewsPaginationView);
+var model = _interopRequireWildcard(require("./model.js"));
+var _recipeView = _interopRequireDefault(require("./views/recipeView.js"));
+var _searchView = _interopRequireDefault(require("./views/searchView.js"));
+var _resultsView = _interopRequireDefault(require("./views/resultsView"));
+var _paginationView = _interopRequireDefault(require("./views/paginationView"));
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+function _getRequireWildcardCache(nodeInterop) {
+  if (typeof WeakMap !== "function") return null;
+  var cacheBabelInterop = new WeakMap();
+  var cacheNodeInterop = new WeakMap();
+  return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
+    return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+  })(nodeInterop);
+}
+function _interopRequireWildcard(obj, nodeInterop) {
+  if (!nodeInterop && obj && obj.__esModule) {
+    return obj;
+  }
+  if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+    return {
+      "default": obj
+    };
+  }
+  var cache = _getRequireWildcardCache(nodeInterop);
+  if (cache && cache.has(obj)) {
+    return cache.get(obj);
+  }
+  var newObj = {};
+  var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+  for (var key in obj) {
+    if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+      var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+      if (desc && (desc.get || desc.set)) {
+        Object.defineProperty(newObj, key, desc);
+      } else {
+        newObj[key] = obj[key];
+      }
+    }
+  }
+  newObj["default"] = obj;
+  if (cache) {
+    cache.set(obj, newObj);
+  }
+  return newObj;
+}
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this, args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+      _next(undefined);
+    });
+  };
+}
 // Example URL:https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886?key=2926f6ca-5c98-4277-8a8e-369020c9168a
 if (module.hot) {
   module.hot.accept();
 }
-const controlRecipes = async () => {
-  try {
-    const id = window.location.hash.slice(1);
-    if (!id) return;
-    _viewsRecipeViewJsDefault.default.renderSpinner();
-    // 0) Update results view to mark selected search result
-    _viewsResultsViewDefault.default.update(_modelJs.getSearchResultsPage());
-    // 1) loading recipe
-    await _modelJs.loadRecipe(id);
-    // 2) rendering recipe
-    _viewsRecipeViewJsDefault.default.render(_modelJs.state.recipe);
-  } catch (error) {
-    _viewsRecipeViewJsDefault.default.renderError();
-  }
-};
-const controlSearchResults = async function () {
-  try {
-    _viewsResultsViewDefault.default.renderSpinner();
-    // 1) Get search query
-    const query = _viewsSearchViewJsDefault.default.getQuery();
-    if (!query) return;
-    // 2) Load search results
-    await _modelJs.loadSearchResults(query);
-    // 3) Render results
-    _viewsResultsViewDefault.default.render(_modelJs.getSearchResultsPage());
-    // 4) Render initial pagination buttons
-    _viewsPaginationViewDefault.default.render(_modelJs.state.search);
-  } catch (err) {
-    console.log(err);
-  }
-};
-const controlPagination = function (goToPage) {
+var controlRecipes = /*#__PURE__*/(function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var id;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            id = window.location.hash.slice(1);
+            if (id) {
+              _context.next = 4;
+              break;
+            }
+            return _context.abrupt("return");
+          case 4:
+            _recipeView["default"].renderSpinner();
+            // 0) Update results view to mark selected search result
+            _resultsView["default"].update(model.getSearchResultsPage());
+            _context.next = 8;
+            return model.loadRecipe(id);
+          case 8:
+            // 2) rendering recipe
+            _recipeView["default"].render(model.state.recipe);
+            _context.next = 14;
+            break;
+          case 11:
+            _context.prev = 11;
+            _context.t0 = _context["catch"](0);
+            _recipeView["default"].renderError();
+          case 14:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 11]]);
+  }));
+  return function controlRecipes() {
+    return _ref.apply(this, arguments);
+  };
+})();
+var controlSearchResults = /*#__PURE__*/(function () {
+  var _ref2 = _asyncToGenerator(/*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    var query;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _resultsView["default"].renderSpinner();
+            // 1) Get search query
+            query = _searchView["default"].getQuery();
+            if (query) {
+              _context2.next = 5;
+              break;
+            }
+            return _context2.abrupt("return");
+          case 5:
+            _context2.next = 7;
+            return model.loadSearchResults(query);
+          case 7:
+            // 3) Render results
+            _resultsView["default"].render(model.getSearchResultsPage());
+            // 4) Render initial pagination buttons
+            _paginationView["default"].render(model.state.search);
+            _context2.next = 14;
+            break;
+          case 11:
+            _context2.prev = 11;
+            _context2.t0 = _context2["catch"](0);
+            console.log(_context2.t0);
+          case 14:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 11]]);
+  }));
+  return function controlSearchResults() {
+    return _ref2.apply(this, arguments);
+  };
+})();
+var controlPagination = function controlPagination(goToPage) {
   // 1) Render NEW results
-  _viewsResultsViewDefault.default.render(_modelJs.getSearchResultsPage(goToPage));
+  _resultsView["default"].render(model.getSearchResultsPage(goToPage));
   // 2) Render NEW pagination buttons
-  _viewsPaginationViewDefault.default.render(_modelJs.state.search);
+  _paginationView["default"].render(model.state.search);
 };
-const controlServings = function (newServings) {
+var controlServings = function controlServings(newServings) {
   // Update the recipe servings (in state)
-  _modelJs.updateServings(newServings);
+  model.updateServings(newServings);
   // Update the recipe view
-  _viewsRecipeViewJsDefault.default.update(_modelJs.state.recipe);
+  _recipeView["default"].update(model.state.recipe);
 };
-const init = function () {
+var init = function init() {
   // this is the subscriber of our function
-  _viewsRecipeViewJsDefault.default.addHandlerRender(controlRecipes);
-  _viewsRecipeViewJsDefault.default.addHandlerUpdateServings(controlServings);
-  _viewsSearchViewJsDefault.default.addHandlerSearch(controlSearchResults);
-  _viewsPaginationViewDefault.default.addHandlerClick(controlPagination);
+  _recipeView["default"].addHandlerRender(controlRecipes);
+  _recipeView["default"].addHandlerUpdateServings(controlServings);
+  _searchView["default"].addHandlerSearch(controlSearchResults);
+  _paginationView["default"].addHandlerClick(controlPagination);
 };
 init();
 
-},{"regenerator-runtime":"62Qib","core-js/stable":"1PFvP","regenerator-runtime/runtime":"62Qib","./model.js":"1hp6y","./views/recipeView.js":"3D8rT","./views/searchView.js":"3rYQ6","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./views/resultsView":"17PYN","./views/paginationView":"5u5Fw"}],"62Qib":[function(require,module,exports) {
+},{"regenerator-runtime":"62Qib","core-js/stable":"1PFvP","regenerator-runtime/runtime":"62Qib","./model.js":"1hp6y","./views/recipeView.js":"3D8rT","./views/searchView.js":"3rYQ6","./views/resultsView":"17PYN","./views/paginationView":"5u5Fw"}],"62Qib":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -12967,27 +13099,44 @@ $({ target: 'URL', proto: true, enumerable: true }, {
 });
 
 },{"../internals/export":"7f5VM"}],"1hp6y":[function(require,module,exports) {
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-_parcelHelpers.export(exports, "state", function () {
-  return state;
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-_parcelHelpers.export(exports, "loadRecipe", function () {
-  return loadRecipe;
-});
-_parcelHelpers.export(exports, "loadSearchResults", function () {
-  return loadSearchResults;
-});
-_parcelHelpers.export(exports, "getSearchResultsPage", function () {
-  return getSearchResultsPage;
-});
-_parcelHelpers.export(exports, "updateServings", function () {
-  return updateServings;
-});
-require("regenerator-runtime");
+exports.updateServings = exports.getSearchResultsPage = exports.loadSearchResults = exports.loadRecipe = exports.state = void 0;
+var _regeneratorRuntime = require("regenerator-runtime");
 var _config = require("./config");
 var _helpers = require("./helpers");
-const state = {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this, args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+      _next(undefined);
+    });
+  };
+}
+var state = {
   recipe: {},
   search: {
     query: "",
@@ -12997,261 +13146,392 @@ const state = {
   },
   bookmarks: []
 };
-const loadRecipe = async id => {
-  try {
-    const data = await _helpers.getJSON(`${_config.API_URL}${id}?key=${"2926f6ca-5c98-4277-8a8e-369020c9168a"}`);
-    const {recipe} = data.data;
-    state.recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      sourceUrl: recipe.source_url,
-      image: recipe.image_url,
-      servings: recipe.servings,
-      cookingTime: recipe.cooking_time,
-      ingredients: recipe.ingredients
-    };
-  } catch (error) {
-    console.log(`error: ${error}`);
-    throw error;
-  }
-};
-const loadSearchResults = async query => {
-  try {
-    state.search.query = query;
-    const data = await _helpers.getJSON(`${_config.API_URL}?search=${query}&key=${"2926f6ca-5c98-4277-8a8e-369020c9168a"}`);
-    state.search.results = data.data.recipes.map(rec => {
-      return {
-        id: rec.id,
-        title: rec.title,
-        publisher: rec.publisher,
-        image: rec.image_url
-      };
-    });
-  } catch (error) {
-    console.log(`error: ${error}`);
-    throw error;
-  }
-};
-const getSearchResultsPage = function (page = state.search.page) {
+exports.state = state;
+var loadRecipe = /*#__PURE__*/(function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/regeneratorRuntime.mark(function _callee(id) {
+    var data, recipe;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return (0, _helpers.getJSON)(("").concat(_config.API_URL).concat(id, "?key=").concat("2926f6ca-5c98-4277-8a8e-369020c9168a"));
+          case 3:
+            data = _context.sent;
+            recipe = data.data.recipe;
+            state.recipe = {
+              id: recipe.id,
+              title: recipe.title,
+              publisher: recipe.publisher,
+              sourceUrl: recipe.source_url,
+              image: recipe.image_url,
+              servings: recipe.servings,
+              cookingTime: recipe.cooking_time,
+              ingredients: recipe.ingredients
+            };
+            _context.next = 12;
+            break;
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](0);
+            console.log(("error: ").concat(_context.t0));
+            throw _context.t0;
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 8]]);
+  }));
+  return function loadRecipe(_x) {
+    return _ref.apply(this, arguments);
+  };
+})();
+exports.loadRecipe = loadRecipe;
+var loadSearchResults = /*#__PURE__*/(function () {
+  var _ref2 = _asyncToGenerator(/*#__PURE__*/regeneratorRuntime.mark(function _callee2(query) {
+    var data;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            state.search.query = query;
+            _context2.next = 4;
+            return (0, _helpers.getJSON)(("").concat(_config.API_URL, "?search=").concat(query, "&key=").concat("2926f6ca-5c98-4277-8a8e-369020c9168a"));
+          case 4:
+            data = _context2.sent;
+            state.search.results = data.data.recipes.map(function (rec) {
+              return {
+                id: rec.id,
+                title: rec.title,
+                publisher: rec.publisher,
+                image: rec.image_url
+              };
+            });
+            _context2.next = 12;
+            break;
+          case 8:
+            _context2.prev = 8;
+            _context2.t0 = _context2["catch"](0);
+            console.log(("error: ").concat(_context2.t0));
+            throw _context2.t0;
+          case 12:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 8]]);
+  }));
+  return function loadSearchResults(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+exports.loadSearchResults = loadSearchResults;
+var getSearchResultsPage = function getSearchResultsPage() {
+  var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : state.search.page;
   state.search.page = page;
-  const start = (page - 1) * state.search.resultsPerPage;
+  var start = (page - 1) * state.search.resultsPerPage;
   // 0
-  const end = page * state.search.resultsPerPage;
+  var end = page * state.search.resultsPerPage;
   // 9
   return state.search.results.slice(start, end);
 };
-const updateServings = function (newServings) {
-  state.recipe.ingredients.forEach(ing => {
+exports.getSearchResultsPage = getSearchResultsPage;
+var updateServings = function updateServings(newServings) {
+  state.recipe.ingredients.forEach(function (ing) {
     ing.quantity = ing.quantity * newServings / state.recipe.servings;
   });
   state.recipe.servings = newServings;
 };
+exports.updateServings = updateServings;
 
-},{"regenerator-runtime":"62Qib","./config":"6pr2F","./helpers":"581KF","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"6pr2F":[function(require,module,exports) {
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-_parcelHelpers.export(exports, "API_URL", function () {
-  return API_URL;
-});
-_parcelHelpers.export(exports, "TIMEOUT_SEC", function () {
-  return TIMEOUT_SEC;
-});
-_parcelHelpers.export(exports, "RES_PER_PAGE", function () {
-  return RES_PER_PAGE;
-});
-const API_URL = 'https://forkify-api.herokuapp.com/api/v2/recipes/';
-const TIMEOUT_SEC = 10;
-const RES_PER_PAGE = 10;
-
-},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"5gA8y":[function(require,module,exports) {
+},{"regenerator-runtime":"62Qib","./config":"6pr2F","./helpers":"581KF"}],"6pr2F":[function(require,module,exports) {
 "use strict";
-
-exports.interopDefault = function (a) {
-  return a && a.__esModule ? a : {
-    default: a
-  };
-};
-
-exports.defineInteropFlag = function (a) {
-  Object.defineProperty(a, '__esModule', {
-    value: true
-  });
-};
-
-exports.exportAll = function (source, dest) {
-  Object.keys(source).forEach(function (key) {
-    if (key === 'default' || key === '__esModule') {
-      return;
-    } // Skip duplicate re-exports when they have the same value.
-
-
-    if (key in dest && dest[key] === source[key]) {
-      return;
-    }
-
-    Object.defineProperty(dest, key, {
-      enumerable: true,
-      get: function () {
-        return source[key];
-      }
-    });
-  });
-  return dest;
-};
-
-exports.export = function (dest, destName, get) {
-  Object.defineProperty(dest, destName, {
-    enumerable: true,
-    get: get
-  });
-};
-},{}],"581KF":[function(require,module,exports) {
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-_parcelHelpers.export(exports, "getJSON", function () {
-  return getJSON;
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-require("regenerator-runtime");
+exports.RES_PER_PAGE = exports.TIMEOUT_SEC = exports.API_URL = void 0;
+var API_URL = 'https://forkify-api.herokuapp.com/api/v2/recipes/';
+exports.API_URL = API_URL;
+var TIMEOUT_SEC = 10;
+exports.TIMEOUT_SEC = TIMEOUT_SEC;
+var RES_PER_PAGE = 10;
+exports.RES_PER_PAGE = RES_PER_PAGE;
+
+},{}],"581KF":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getJSON = void 0;
+var _regeneratorRuntime = require("regenerator-runtime");
 var _config = require("./config");
-const timeout = function (s) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this, args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+      _next(undefined);
+    });
+  };
+}
+var timeout = function timeout(s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
-      reject(new Error(`Request took too long! Timeout after ${s} second`));
+      reject(new Error(("Request took too long! Timeout after ").concat(s, " second")));
     }, s * 1000);
   });
 };
-const getJSON = async url => {
-  try {
-    const fetchPro = fetch(url);
-    const res = await Promise.race([fetchPro, timeout(_config.TIMEOUT_SEC)]);
-    const data = await res.json();
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};
+var getJSON = /*#__PURE__*/(function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/regeneratorRuntime.mark(function _callee(url) {
+    var fetchPro, res, data;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            fetchPro = fetch(url);
+            _context.next = 4;
+            return Promise.race([fetchPro, timeout(_config.TIMEOUT_SEC)]);
+          case 4:
+            res = _context.sent;
+            _context.next = 7;
+            return res.json();
+          case 7:
+            data = _context.sent;
+            if (res.ok) {
+              _context.next = 10;
+              break;
+            }
+            throw new Error(("").concat(data.message, " (").concat(res.status, ")"));
+          case 10:
+            return _context.abrupt("return", data);
+          case 13:
+            _context.prev = 13;
+            _context.t0 = _context["catch"](0);
+            throw _context.t0;
+          case 16:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 13]]);
+  }));
+  return function getJSON(_x) {
+    return _ref.apply(this, arguments);
+  };
+})();
+exports.getJSON = getJSON;
 
-},{"regenerator-runtime":"62Qib","./config":"6pr2F","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"3D8rT":[function(require,module,exports) {
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-var _ViewJs = require('./View.js');
-var _ViewJsDefault = _parcelHelpers.interopDefault(_ViewJs);
-var _urlImgIconsSvg = require('url:../../img/icons.svg');
-var _urlImgIconsSvgDefault = _parcelHelpers.interopDefault(_urlImgIconsSvg);
-var _fractional = require('fractional');
-class RecipeView extends _ViewJsDefault.default {
-  _parentElement = document.querySelector('.recipe');
-  _errorMessage = 'We could not find that recipe. Please try another one!';
-  _message = '';
-  addHandlerRender(handler) {
-    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
+},{"regenerator-runtime":"62Qib","./config":"6pr2F"}],"3D8rT":[function(require,module,exports) {
+"use strict";
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
   }
-  addHandlerUpdateServings(handler) {
-    this._parentElement.addEventListener('click', function (e) {
-      const btn = e.target.closest('.btn--update-servings');
-      if (!btn) return;
-      const {updateTo} = btn.dataset;
-      if (+updateTo > 0) handler(+updateTo);
-    });
-  }
-  addHandlerAddBookmark(handler) {
-    this._parentElement.addEventListener('click', function (e) {
-      const btn = e.target.closest('.btn--bookmark');
-      if (!btn) return;
-      handler();
-    });
-  }
-  _generateMarkup() {
-    return `
-      <figure class="recipe__fig">
-        <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />
-        <h1 class="recipe__title">
-          <span>${this._data.title}</span>
-        </h1>
-      </figure>
-      <div class="recipe__details">
-        <div class="recipe__info">
-          <svg class="recipe__info-icon">
-            <use href="${_urlImgIconsSvgDefault.default}#icon-clock"></use>
-          </svg>
-          <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>
-          <span class="recipe__info-text">minutes</span>
-        </div>
-        <div class="recipe__info">
-          <svg class="recipe__info-icon">
-            <use href="${_urlImgIconsSvgDefault.default}#icon-users"></use>
-          </svg>
-          <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
-          <span class="recipe__info-text">servings</span>
-          <div class="recipe__info-buttons">
-            <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings - 1}">
-              <svg>
-                <use href="${_urlImgIconsSvgDefault.default}#icon-minus-circle"></use>
-              </svg>
-            </button>
-            <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings + 1}">
-              <svg>
-                <use href="${_urlImgIconsSvgDefault.default}#icon-plus-circle"></use>
-              </svg>
-            </button>
-          </div>
-        </div>
-        <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
-          <svg>
-            <use href="${_urlImgIconsSvgDefault.default}#icon-user"></use>
-          </svg>
-        </div>
-        <button class="btn--round btn--bookmark">
-          <svg class="">
-            <use href="${_urlImgIconsSvgDefault.default}#icon-bookmark${this._data.bookmarked ? '-fill' : ''}"></use>
-          </svg>
-        </button>
-      </div>
-      <div class="recipe__ingredients">
-        <h2 class="heading--2">Recipe ingredients</h2>
-        <ul class="recipe__ingredient-list">
-          ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}
-      </div>
-      <div class="recipe__directions">
-        <h2 class="heading--2">How to cook it</h2>
-        <p class="recipe__directions-text">
-          This recipe was carefully designed and tested by
-          <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
-          directions at their website.
-        </p>
-        <a
-          class="btn--small recipe__btn"
-          href="${this._data.sourceUrl}"
-          target="_blank"
-        >
-          <span>Directions</span>
-          <svg class="search__icon">
-            <use href="${_urlImgIconsSvgDefault.default}#icon-arrow-right"></use>
-          </svg>
-        </a>
-      </div>
-    `;
-  }
-  _generateMarkupIngredient(ing) {
-    return `
-    <li class="recipe__ingredient">
-      <svg class="recipe__icon">
-        <use href="${_urlImgIconsSvgDefault.default}#icon-check"></use>
-      </svg>
-      <div class="recipe__quantity">${ing.quantity ? new _fractional.Fraction(ing.quantity).toString() : ''}</div>
-      <div class="recipe__description">
-        <span class="recipe__unit">${ing.unit}</span>
-        ${ing.description}
-      </div>
-    </li>
-  `;
+  return _typeof(obj);
+}
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fixFractions = fixFractions;
+exports["default"] = void 0;
+var _View2 = _interopRequireDefault(require("./View.js"));
+var _icons = _interopRequireDefault(require("url:../../img/icons.svg"));
+var _fractional = require("fractional");
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
   }
 }
-exports.default = new RecipeView();
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if (("value" in descriptor)) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || (function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  });
+  return _setPrototypeOf(o, p);
+}
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived), result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+  return _assertThisInitialized(self);
+}
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+function _defineProperty(obj, key, value) {
+  if ((key in obj)) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function fixFractions(quantity) {
+  var result = new _fractional.Fraction(quantity).toString();
+  if (result === "33/100") {
+    result = "1/3";
+  }
+  return result;
+}
+var RecipeView = /*#__PURE__*/(function (_View) {
+  _inherits(RecipeView, _View);
+  var _super = _createSuper(RecipeView);
+  function RecipeView() {
+    var _this;
+    _classCallCheck(this, RecipeView);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "_parentElement", document.querySelector('.recipe'));
+    _defineProperty(_assertThisInitialized(_this), "_errorMessage", 'We could not find that recipe. Please try another one!');
+    _defineProperty(_assertThisInitialized(_this), "_message", '');
+    return _this;
+  }
+  _createClass(RecipeView, [{
+    key: "addHandlerRender",
+    value: function addHandlerRender(handler) {
+      ['hashchange', 'load'].forEach(function (ev) {
+        return window.addEventListener(ev, handler);
+      });
+    }
+  }, {
+    key: "addHandlerUpdateServings",
+    value: function addHandlerUpdateServings(handler) {
+      this._parentElement.addEventListener('click', function (e) {
+        var btn = e.target.closest('.btn--update-servings');
+        if (!btn) return;
+        var updateTo = btn.dataset.updateTo;
+        if (+updateTo > 0) handler(+updateTo);
+      });
+    }
+  }, {
+    key: "addHandlerAddBookmark",
+    value: function addHandlerAddBookmark(handler) {
+      this._parentElement.addEventListener('click', function (e) {
+        var btn = e.target.closest('.btn--bookmark');
+        if (!btn) return;
+        handler();
+      });
+    }
+  }, {
+    key: "_generateMarkup",
+    value: function _generateMarkup() {
+      return ("\n      <figure class=\"recipe__fig\">\n        <img src=\"").concat(this._data.image, "\" alt=\"").concat(this._data.title, "\" class=\"recipe__img\" />\n        <h1 class=\"recipe__title\">\n          <span>").concat(this._data.title, "</span>\n        </h1>\n      </figure>\n      <div class=\"recipe__details\">\n        <div class=\"recipe__info\">\n          <svg class=\"recipe__info-icon\">\n            <use href=\"").concat(_icons["default"], "#icon-clock\"></use>\n          </svg>\n          <span class=\"recipe__info-data recipe__info-data--minutes\">").concat(this._data.cookingTime, "</span>\n          <span class=\"recipe__info-text\">minutes</span>\n        </div>\n        <div class=\"recipe__info\">\n          <svg class=\"recipe__info-icon\">\n            <use href=\"").concat(_icons["default"], "#icon-users\"></use>\n          </svg>\n          <span class=\"recipe__info-data recipe__info-data--people\">").concat(this._data.servings, "</span>\n          <span class=\"recipe__info-text\">servings</span>\n          <div class=\"recipe__info-buttons\">\n            <button class=\"btn--tiny btn--update-servings\" data-update-to=\"").concat(this._data.servings - 1, "\">\n              <svg>\n                <use href=\"").concat(_icons["default"], "#icon-minus-circle\"></use>\n              </svg>\n            </button>\n            <button class=\"btn--tiny btn--update-servings\" data-update-to=\"").concat(this._data.servings + 1, "\">\n              <svg>\n                <use href=\"").concat(_icons["default"], "#icon-plus-circle\"></use>\n              </svg>\n            </button>\n          </div>\n        </div>\n        <div class=\"recipe__user-generated ").concat(this._data.key ? '' : 'hidden', "\">\n          <svg>\n            <use href=\"").concat(_icons["default"], "#icon-user\"></use>\n          </svg>\n        </div>\n        <button class=\"btn--round btn--bookmark\">\n          <svg class=\"\">\n            <use href=\"").concat(_icons["default"], "#icon-bookmark").concat(this._data.bookmarked ? '-fill' : '', "\"></use>\n          </svg>\n        </button>\n      </div>\n      <div class=\"recipe__ingredients\">\n        <h2 class=\"heading--2\">Recipe ingredients</h2>\n        <ul class=\"recipe__ingredient-list\">\n          ").concat(this._data.ingredients.map(this._generateMarkupIngredient).join(''), "\n      </div>\n      <div class=\"recipe__directions\">\n        <h2 class=\"heading--2\">How to cook it</h2>\n        <p class=\"recipe__directions-text\">\n          This recipe was carefully designed and tested by\n          <span class=\"recipe__publisher\">").concat(this._data.publisher, "</span>. Please check out\n          directions at their website.\n        </p>\n        <a\n          class=\"btn--small recipe__btn\"\n          href=\"").concat(this._data.sourceUrl, "\"\n          target=\"_blank\"\n        >\n          <span>Directions</span>\n          <svg class=\"search__icon\">\n            <use href=\"").concat(_icons["default"], "#icon-arrow-right\"></use>\n          </svg>\n        </a>\n      </div>\n    ");
+    }
+  }, {
+    key: "_generateMarkupIngredient",
+    value: function _generateMarkupIngredient(ing) {
+      return ("\n    <li class=\"recipe__ingredient\">\n      <svg class=\"recipe__icon\">\n        <use href=\"").concat(_icons["default"], "#icon-check\"></use>\n      </svg>\n      <div class=\"recipe__quantity\">").concat(ing.quantity ? new _fractional.Fraction(ing.quantity).toString() : '', "</div>\n      <div class=\"recipe__description\">\n        <span class=\"recipe__unit\">").concat(ing.unit, "</span>\n        ").concat(ing.description, "\n      </div>\n    </li>\n  ");
+    }
+  }]);
+  return RecipeView;
+})(_View2["default"]);
+var _default = new RecipeView();
+exports["default"] = _default;
 
-},{"url:../../img/icons.svg":"3t5dV","fractional":"5jzJt","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./View.js":"48jhP"}],"3t5dV":[function(require,module,exports) {
+},{"url:../../img/icons.svg":"3t5dV","fractional":"5jzJt","./View.js":"48jhP"}],"3t5dV":[function(require,module,exports) {
 module.exports = require('./bundle-url').getBundleURL() + "icons.d4a14980.svg"
 },{"./bundle-url":"3seVR"}],"3seVR":[function(require,module,exports) {
 "use strict";
@@ -13669,222 +13949,529 @@ Fraction.primeFactors = function(n)
 module.exports.Fraction = Fraction
 
 },{}],"48jhP":[function(require,module,exports) {
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-var _urlImgIconsSvg = require('url:../../img/icons.svg');
-var _urlImgIconsSvgDefault = _parcelHelpers.interopDefault(_urlImgIconsSvg);
-class View {
-  _data;
-  /**
-  * Render the received object to the DOM
-  * @param {Object | Object[]} data The data to be rendered (e.g. recipe)
-  * @param {boolean} [render=true] If false, create markup string instead of rendering to the DOM
-  * @returns {undefined | string} A markup string is returned if render=false
-  * @this {Object} View instance
-  * @author Alexander Govea
-  * @todo Finish implementation
-  */
-  render(data, render = true) {
-    if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
-    this._data = data;
-    const markup = this._generateMarkup();
-    if (!render) return markup;
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _icons = _interopRequireDefault(require("url:../../img/icons.svg"));
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
   }
-  update(data) {
-    this._data = data;
-    const newMarkup = this._generateMarkup();
-    const newDOM = document.createRange().createContextualFragment(newMarkup);
-    // convert all elements to an array
-    const newElements = Array.from(newDOM.querySelectorAll('*'));
-    const curElements = Array.from(this._parentElement.querySelectorAll('*'));
-    newElements.forEach((newEl, i) => {
-      const curEl = curElements[i];
-      // console.log(curEl, newEl.isEqualNode(curEl));
-      // Updates changed TEXT
-      if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue?.trim?.() !== '') {
-        // console.log('💥', newEl.firstChild.nodeValue.trim());
-        curEl.textContent = newEl.textContent;
-      }
-      // Updates changed ATTRIBUES
-      if (!newEl.isEqualNode(curEl)) Array.from(newEl.attributes).forEach(attr => curEl.setAttribute(attr.name, attr.value));
+}
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if (("value" in descriptor)) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+function _defineProperty(obj, key, value) {
+  if ((key in obj)) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
     });
+  } else {
+    obj[key] = value;
   }
-  _clear() {
-    this._parentElement.innerHTML = '';
-  }
-  renderSpinner() {
-    const markup = `
-      <div class="spinner">
-        <svg>
-          <use href="${_urlImgIconsSvgDefault.default}#icon-loader"></use>
-        </svg>
-      </div>
-    `;
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-  renderError(message = this._errorMessage) {
-    const markup = `
-      <div class="error">
-        <div>
-          <svg>
-            <use href="${_urlImgIconsSvgDefault.default}#icon-alert-triangle"></use>
-          </svg>
-        </div>
-        <p>${message}</p>
-      </div>
-    `;
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-  renderMessage(message = this._message) {
-    const markup = `
-      <div class="message">
-        <div>
-          <svg>
-            <use href="${_urlImgIconsSvgDefault.default}#icon-smile"></use>
-          </svg>
-        </div>
-        <p>${message}</p>
-      </div>
-    `;
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
+  return obj;
 }
-exports.default = View;
-
-},{"url:../../img/icons.svg":"3t5dV","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"3rYQ6":[function(require,module,exports) {
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-class SearchView {
-  _parentEl = document.querySelector(".search");
-  getQuery() {
-    const query = this._parentEl.querySelector(".search__field").value;
-    this.clearInput();
-    return query;
-  }
-  clearInput() {
-    this._parentEl.querySelector(".search__field").value = "";
-  }
-  addHandlerSearch(handler) {
-    this._parentEl.addEventListener("submit", function (e) {
-      e.preventDefault();
-      handler();
-    });
-  }
-}
-exports.default = new SearchView();
-
-},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"17PYN":[function(require,module,exports) {
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-var _View = require("./View");
-var _ViewDefault = _parcelHelpers.interopDefault(_View);
-var _urlImgIconsSvg = require("url:../../img/icons.svg");
-var _urlImgIconsSvgDefault = _parcelHelpers.interopDefault(_urlImgIconsSvg);
-class ResultsView extends _ViewDefault.default {
-  _parentElement = document.querySelector(".results");
-  _errorMessage = "No recipes found for your query! Please try again ;)";
-  _message = "";
-  _generateMarkup() {
-    return this._data.map(result => this._generateMarkupPreview(result)).join("");
-  }
-  _generateMarkupPreview(result) {
-    const id = window.location.hash.slice(1);
-    return `
-    <li class="preview">
-    <a class="preview__link ${result.id === id ? "preview__link--active" : ""}" href="#${result.id}">
-      <figure class="preview__fig">
-        <img src="${result.image}" alt="${result.title}" />
-      </figure>
-      <div class="preview__data">
-        <h4 class="preview__title">${result.title}</h4>
-        <p class="preview__publisher">${result.publisher}</p>
-        <div class="preview__user-generated ${result.key ? "" : "hidden"}">
-          <svg>
-          <use href="${_urlImgIconsSvgDefault.default}#icon-user"></use>
-          </svg>
-        </div>
-      </div>
-    </a>
-  </li>    
-  `;
-  }
-}
-exports.default = new ResultsView();
-
-},{"./View":"48jhP","url:../../img/icons.svg":"3t5dV","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"5u5Fw":[function(require,module,exports) {
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-var _ViewJs = require("./View.js");
-var _ViewJsDefault = _parcelHelpers.interopDefault(_ViewJs);
-var _urlImgIconsSvg = require("url:../../img/icons.svg");
-var _urlImgIconsSvgDefault = _parcelHelpers.interopDefault(_urlImgIconsSvg);
 // Parcel 2
-class PaginationView extends _ViewJsDefault.default {
-  _parentElement = document.querySelector(".pagination");
-  addHandlerClick(handler) {
-    // target the closest element with class .btn--inline
-    this._parentElement.addEventListener("click", function (e) {
-      const btn = e.target.closest(".btn--inline");
-      console.log(btn);
-      if (!btn) return;
-      const goToPage = +btn.dataset.goto;
-      handler(goToPage);
-    });
+// this will make it so that you can call all these functions from everywhere
+var View = /*#__PURE__*/(function () {
+  function View() {
+    _classCallCheck(this, View);
+    _defineProperty(this, "_data", void 0);
   }
-  _generateMarkup() {
-    const curPage = this._data.page;
-    const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
-    // Page 1, and there are other pages
-    if (curPage === 1 && numPages > 1) {
-      return `
-          <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
-            <span>Page ${curPage + 1}</span>
-            <svg class="search__icon">
-              <use href="${_urlImgIconsSvgDefault.default}#icon-arrow-right"></use>
-            </svg>
-          </button>
-        `;
+  _createClass(View, [{
+    key: "render",
+    value: /**
+    * Render the received object to the DOM
+    * @param {Object | Object[]} data The data to be rendered (e.g. recipe)
+    * @param {boolean} [render=true] If false, create markup string instead of rendering to the DOM
+    * @returns {undefined | string} A markup string is returned if render=false
+    * @this {Object} View instance
+    * @author Alexander Govea
+    * @todo Finish implementation
+    */
+    function render(data) {
+      var _render = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+      this._data = data;
+      var markup = this._generateMarkup();
+      if (!_render) return markup;
+      this._clear();
+      this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
-    // Last page
-    if (curPage === numPages && numPages > 1) {
-      return `
-          <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
-            <svg class="search__icon">
-              <use href="${_urlImgIconsSvgDefault.default}#icon-arrow-left"></use>
-            </svg>
-            <span>Page ${curPage - 1}</span>
-          </button>
-        `;
+  }, {
+    key: "update",
+    value: function update(data) {
+      this._data = data;
+      var newMarkup = this._generateMarkup();
+      var newDOM = document.createRange().createContextualFragment(newMarkup);
+      // convert all elements to an array
+      var newElements = Array.from(newDOM.querySelectorAll('*'));
+      var curElements = Array.from(this._parentElement.querySelectorAll('*'));
+      newElements.forEach(function (newEl, i) {
+        var _newEl$firstChild;
+        var curEl = curElements[i];
+        // console.log(curEl, newEl.isEqualNode(curEl));
+        // Updates changed TEXT
+        if (!newEl.isEqualNode(curEl) && ((_newEl$firstChild = newEl.firstChild) === null || _newEl$firstChild === void 0 ? void 0 : _newEl$firstChild.nodeValue.trim()) !== '') {
+          // console.log('💥', newEl.firstChild.nodeValue.trim());
+          curEl.textContent = newEl.textContent;
+        }
+        // Updates changed ATTRIBUES
+        if (!newEl.isEqualNode(curEl)) Array.from(newEl.attributes).forEach(function (attr) {
+          return curEl.setAttribute(attr.name, attr.value);
+        });
+      });
     }
-    // Other page
-    if (curPage < numPages) {
-      return `
-          <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
-            <svg class="search__icon">
-              <use href="${_urlImgIconsSvgDefault.default}#icon-arrow-left"></use>
-            </svg>
-            <span>Page ${curPage - 1}</span>
-          </button>
+  }, {
+    key: "_clear",
+    value: function _clear() {
+      this._parentElement.innerHTML = '';
+    }
+  }, {
+    key: "renderSpinner",
+    value: function renderSpinner() {
+      var markup = ("\n      <div class=\"spinner\">\n        <svg>\n          <use href=\"").concat(_icons["default"], "#icon-loader\"></use>\n        </svg>\n      </div>\n    ");
+      this._clear();
+      this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
+  }, {
+    key: "renderError",
+    value: function renderError() {
+      var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this._errorMessage;
+      var markup = ("\n      <div class=\"error\">\n        <div>\n          <svg>\n            <use href=\"").concat(_icons["default"], "#icon-alert-triangle\"></use>\n          </svg>\n        </div>\n        <p>").concat(message, "</p>\n      </div>\n    ");
+      this._clear();
+      this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
+  }, {
+    key: "renderMessage",
+    value: function renderMessage() {
+      var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this._message;
+      var markup = ("\n      <div class=\"message\">\n        <div>\n          <svg>\n            <use href=\"").concat(_icons["default"], "#icon-smile\"></use>\n          </svg>\n        </div>\n        <p>").concat(message, "</p>\n      </div>\n    ");
+      this._clear();
+      this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
+  }]);
+  return View;
+})();
+exports["default"] = View;
 
-          <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
-            <span>Page ${curPage + 1}</span>
-            <svg class="search__icon">
-              <use href="${_urlImgIconsSvgDefault.default}#icon-arrow-right"></use>
-            </svg>
-          </button>
-        `;
-    }
-    // Page 1, and there are NO other pages
-    return "";
+},{"url:../../img/icons.svg":"3t5dV"}],"3rYQ6":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
   }
 }
-exports.default = new PaginationView();
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if (("value" in descriptor)) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+function _defineProperty(obj, key, value) {
+  if ((key in obj)) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+var SearchView = /*#__PURE__*/(function () {
+  function SearchView() {
+    _classCallCheck(this, SearchView);
+    _defineProperty(this, "_parentEl", document.querySelector(".search"));
+  }
+  _createClass(SearchView, [{
+    key: "getQuery",
+    value: function getQuery() {
+      var query = this._parentEl.querySelector(".search__field").value;
+      this.clearInput();
+      return query;
+    }
+  }, {
+    key: "clearInput",
+    value: function clearInput() {
+      this._parentEl.querySelector(".search__field").value = "";
+    }
+  }, {
+    key: "addHandlerSearch",
+    value: function addHandlerSearch(handler) {
+      this._parentEl.addEventListener("submit", function (e) {
+        e.preventDefault();
+        handler();
+      });
+    }
+  }]);
+  return SearchView;
+})();
+var _default = new SearchView();
+exports["default"] = _default;
 
-},{"./View.js":"48jhP","url:../../img/icons.svg":"3t5dV","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}]},["7BONy","3miIZ"], "3miIZ", "parcelRequirefade")
+},{}],"17PYN":[function(require,module,exports) {
+"use strict";
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+  return _typeof(obj);
+}
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _View2 = _interopRequireDefault(require("./View"));
+var _icons = _interopRequireDefault(require("url:../../img/icons.svg"));
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if (("value" in descriptor)) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || (function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  });
+  return _setPrototypeOf(o, p);
+}
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived), result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+  return _assertThisInitialized(self);
+}
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+function _defineProperty(obj, key, value) {
+  if ((key in obj)) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+var ResultsView = /*#__PURE__*/(function (_View) {
+  _inherits(ResultsView, _View);
+  var _super = _createSuper(ResultsView);
+  function ResultsView() {
+    var _this;
+    _classCallCheck(this, ResultsView);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "_parentElement", document.querySelector(".results"));
+    _defineProperty(_assertThisInitialized(_this), "_errorMessage", "No recipes found for your query! Please try again ;)");
+    _defineProperty(_assertThisInitialized(_this), "_message", "");
+    return _this;
+  }
+  _createClass(ResultsView, [{
+    key: "_generateMarkup",
+    value: function _generateMarkup() {
+      var _this2 = this;
+      return this._data.map(function (result) {
+        return _this2._generateMarkupPreview(result);
+      }).join("");
+    }
+  }, {
+    key: "_generateMarkupPreview",
+    value: function _generateMarkupPreview(result) {
+      var id = window.location.hash.slice(1);
+      return ("\n    <li class=\"preview\">\n    <a class=\"preview__link ").concat(result.id === id ? "preview__link--active" : "", "\" href=\"#").concat(result.id, "\">\n      <figure class=\"preview__fig\">\n        <img src=\"").concat(result.image, "\" alt=\"").concat(result.title, "\" />\n      </figure>\n      <div class=\"preview__data\">\n        <h4 class=\"preview__title\">").concat(result.title, "</h4>\n        <p class=\"preview__publisher\">").concat(result.publisher, "</p>\n        <div class=\"preview__user-generated ").concat(result.key ? "" : "hidden", "\">\n          <svg>\n          <use href=\"").concat(_icons["default"], "#icon-user\"></use>\n          </svg>\n        </div>\n      </div>\n    </a>\n  </li>    \n  ");
+    }
+  }]);
+  return ResultsView;
+})(_View2["default"]);
+var _default = new ResultsView();
+exports["default"] = _default;
+
+},{"./View":"48jhP","url:../../img/icons.svg":"3t5dV"}],"5u5Fw":[function(require,module,exports) {
+"use strict";
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+  return _typeof(obj);
+}
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _View2 = _interopRequireDefault(require("./View.js"));
+var _icons = _interopRequireDefault(require("url:../../img/icons.svg"));
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if (("value" in descriptor)) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || (function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  });
+  return _setPrototypeOf(o, p);
+}
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived), result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+  return _assertThisInitialized(self);
+}
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+function _defineProperty(obj, key, value) {
+  if ((key in obj)) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+// Parcel 2
+var PaginationView = /*#__PURE__*/(function (_View) {
+  _inherits(PaginationView, _View);
+  var _super = _createSuper(PaginationView);
+  function PaginationView() {
+    var _this;
+    _classCallCheck(this, PaginationView);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "_parentElement", document.querySelector(".pagination"));
+    return _this;
+  }
+  _createClass(PaginationView, [{
+    key: "addHandlerClick",
+    value: function addHandlerClick(handler) {
+      // target the closest element with class .btn--inline
+      this._parentElement.addEventListener("click", function (e) {
+        var btn = e.target.closest(".btn--inline");
+        console.log(btn);
+        if (!btn) return;
+        var goToPage = +btn.dataset["goto"];
+        handler(goToPage);
+      });
+    }
+  }, {
+    key: "_generateMarkup",
+    value: function _generateMarkup() {
+      var curPage = this._data.page;
+      var numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
+      // Page 1, and there are other pages
+      if (curPage === 1 && numPages > 1) {
+        return ("\n          <button data-goto=\"").concat(curPage + 1, "\" class=\"btn--inline pagination__btn--next\">\n            <span>Page ").concat(curPage + 1, "</span>\n            <svg class=\"search__icon\">\n              <use href=\"").concat(_icons["default"], "#icon-arrow-right\"></use>\n            </svg>\n          </button>\n        ");
+      }
+      // Last page
+      if (curPage === numPages && numPages > 1) {
+        return ("\n          <button data-goto=\"").concat(curPage - 1, "\" class=\"btn--inline pagination__btn--prev\">\n            <svg class=\"search__icon\">\n              <use href=\"").concat(_icons["default"], "#icon-arrow-left\"></use>\n            </svg>\n            <span>Page ").concat(curPage - 1, "</span>\n          </button>\n        ");
+      }
+      // Other page
+      if (curPage < numPages) {
+        return ("\n          <button data-goto=\"").concat(curPage - 1, "\" class=\"btn--inline pagination__btn--prev\">\n            <svg class=\"search__icon\">\n              <use href=\"").concat(_icons["default"], "#icon-arrow-left\"></use>\n            </svg>\n            <span>Page ").concat(curPage - 1, "</span>\n          </button>\n\n          <button data-goto=\"").concat(curPage + 1, "\" class=\"btn--inline pagination__btn--next\">\n            <span>Page ").concat(curPage + 1, "</span>\n            <svg class=\"search__icon\">\n              <use href=\"").concat(_icons["default"], "#icon-arrow-right\"></use>\n            </svg>\n          </button>\n        ");
+      }
+      // Page 1, and there are NO other pages
+      return "";
+    }
+  }]);
+  return PaginationView;
+})(_View2["default"]);
+var _default = new PaginationView();
+exports["default"] = _default;
+
+},{"./View.js":"48jhP","url:../../img/icons.svg":"3t5dV"}]},["7BONy","3miIZ"], "3miIZ", "parcelRequire427e")
 
 //# sourceMappingURL=index.250b04c7.js.map

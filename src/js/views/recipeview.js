@@ -1,10 +1,20 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import View from './View.js';
 
-// import icons from '../img/icons.svg'; // Parcel 1
-import icons from 'url:../../img/icons.svg'; // Parcel 2
+import icons from "../../img/icons.svg";// Parcel 1
+//import icons from 'url:../../img/icons.svg'; // Parcel 2
 import { Fraction } from 'fractional';
 
-class RecipeView extends View {
+// export function fixFractions(quantity) {
+//   let result = new Fraction(quantity).toString();
+//   if (result === "33/100") {
+//     result = "1/3";
+//   } 
+//   return result;
+// }
+
+export class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
   _errorMessage = 'We could not find that recipe. Please try another one!';
   _message = '';
@@ -18,7 +28,7 @@ class RecipeView extends View {
       const btn = e.target.closest('.btn--update-servings');
       if (!btn) return;
       const { updateTo } = btn.dataset;
-      if (+updateTo > 0) handler(+updateTo);
+      if (+updateTo > 0) handl0er(+updateTo);
     });
   }
 
@@ -114,7 +124,7 @@ class RecipeView extends View {
         </a>
       </div>
     `;
-  }
+  }v
 
   _generateMarkupIngredient(ing) {
     return `
@@ -134,4 +144,4 @@ class RecipeView extends View {
   }
 }
 
-export default new RecipeView();
+export const recipeView = new RecipeView();
